@@ -24,26 +24,16 @@ fn list_combinations(list: &[i64], current: i64) -> Vec<i64> {
 	return results;
 }
 
-fn subset_sum<NumType: Num+PartialOrd, IterType: Iterator<NumType> + Clone>
-          (mut nums: IterType, total: NumType) -> bool {
-    let zero = std::num::Zero::zero();
-    if total == zero {return true;}
-    if total <  zero {return false;}
-    match nums.next() {
-        None => total == zero,
+fn subset_sum(mut nums: &[Option<i64>], total: i64) -> bool {
+    if total == 0 {return true;}
+    if total <  0 {return false;}
+    match nums[0] {
+        None => total == 0,
         Some(x) => {
             subset_sum(nums.clone(), total-x) || subset_sum(nums,total)
         }
     }
 }
 
-#[wasm_bindgen]
-pub fn subset_sum_r(array: JsValue){
-    let numbers: Vec<i32> = array.into_serde().unwrap();
-    const A: i32 = numbers.iter().filter(|x| x.is_positive()).sum();
-    const B: i32 = numbers.iter().filter(|x| x.is_negative()).sum();
-    assert!(A.is_positive());
-    assert!(B.is_negative());
-}
 
 
