@@ -38,7 +38,7 @@ fn subset_sum_rec(mut nums: &[i32], total: i32) -> bool {
 
 
 #[wasm_bindgen]
-pub fn subset_sum(mut nums_obj: &JsValue, total: i32) -> bool {
+pub fn subset_sum(nums_obj: &JsValue, total: i32) -> bool {
     let nums: &[i32] = nums_obj.into_serde().unwrap();
     return subset_sum_rec(nums, total);
 }
