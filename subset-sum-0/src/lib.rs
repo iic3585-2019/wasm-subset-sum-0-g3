@@ -24,16 +24,23 @@ fn list_combinations(list: &[i64], current: i64) -> Vec<i64> {
 	return results;
 }
 
-fn subset_sum(mut nums: &[Option<i64>], total: i64) -> bool {
+fn subset_sum_rec(mut nums: &[i32], total: i32) -> bool {
     if total == 0 {return true;}
     if total <  0 {return false;}
-    match nums[0] {
-        None => total == 0,
-        Some(x) => {
-            subset_sum(nums.clone(), total-x) || subset_sum(nums,total)
-        }
+    let length = nums.len();
+    if length == 0{
+        return {total == 0}
     }
+    let new_array = nums.clone();
+    subset_sum_rec(&new_array[1..length], total-new_array[0]) || subset_sum_rec(nums,total);
+    return false;
 }
 
+
+#[wasm_bindgen]
+pub fn subset_sum(mut nums_obj: &JsValue, total: i32) -> bool {
+    let nums: &[i32] = nums_obj.into_serde().unwrap();
+    return subset_sum_rec(nums, total);
+}
 
 
