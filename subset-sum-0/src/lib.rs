@@ -10,7 +10,6 @@ use wasm_bindgen::prelude::*;
 #[global_allocator]
 static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
 
-#[macro_use]
 extern crate serde_derive;
 
 fn list_combinations(list: &[i64], current: i64) -> Vec<i64> {
