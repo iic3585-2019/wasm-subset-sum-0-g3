@@ -24,20 +24,19 @@ fn list_combinations(list: &[i64], current: i64) -> Vec<i64> {
 	return results;
 }
 
-fn subset_sum_rec(mut nums:  Vec<i32>, total: i32) -> bool {
+fn subset_sum_rec(mut nums:  Vec<i32>, total: i32, index: usize, subset_size: u8) -> bool {
     let length = nums.len();
+    println!("length: {}",length);
+    println!("index: {}",index);
     let rec_bool;
-    if length == 0{
-        if total == 0 {return true;}
+    if (length - index) < 1{
+        if (total == 0 && (subset_size > 0)) {return true;}
+        return false;
     }
-    let mut new_array = nums.clone();
-    let first = new_array.pop();
-    if first.is_none(){
-        rec_bool = subset_sum_rec(nums,total);
-    }else{
-        let new_total = total - first.unwrap();
-        rec_bool = subset_sum_rec(new_array, new_total) || subset_sum_rec(nums,total)
-    }
+    let actual = nums[index];
+    let nums_copy = nums.clone();
+    let new_total = total - actual;
+    rec_bool = subset_sum_rec(nums_copy, new_total, index+1, subset_size + 1) || subset_sum_rec(nums,total,index+1, subset_size);
     if rec_bool {return true;}
     return false;
 }
@@ -46,7 +45,7 @@ fn subset_sum_rec(mut nums:  Vec<i32>, total: i32) -> bool {
 #[wasm_bindgen]
 pub fn subset_sum(nums_obj: &JsValue, total: i32) -> bool {
     let nums: Vec<i32> = nums_obj.into_serde().unwrap();
-    return subset_sum_rec(nums, total);
+    return subset_sum_rec(nums, total, 0, 0);
 }
 
 
