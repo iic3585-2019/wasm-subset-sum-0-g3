@@ -62,4 +62,45 @@ int main(int argc, char ** argv) {
   int number = 5;
   int fact = factorial(number);
   printf("The factorial of %d is %d", number, fact);
+
+  // Initializing a matrix
+  int adj_length = 10;
+  int **adj = malloc(sizeof(int*)*10);
+  for (size_t i = 0; i < 10; i++) {
+    adj[i] = malloc(sizeof(int) * 2);
+  }
+  int nodes = 4;
+
+  adj[0][0] = 0;
+  adj[0][1] = 1;
+
+  adj[1][0] = 0;
+  adj[1][1] = 2;
+
+  adj[2][0] = 0;
+  adj[2][1] = 3;
+  
+  adj[3][0] = 1;
+  adj[3][1] = 0;
+
+  adj[4][0] = 1;
+  adj[4][1] = 2;
+
+  adj[5][0] = 2;
+  adj[5][1] = 0;
+
+  adj[6][0] = 2;
+  adj[6][1] = 1;
+
+  adj[7][0] = 2;
+  adj[7][1] = 3;
+  
+  adj[8][0] = 3;
+  adj[8][1] = 0;
+
+  adj[9][0] = 3;
+  adj[9][1] = 2;
+
+  printf("Is the graph 3-coloreable? %d", is_k_coloreable(3, nodes, adj, adj_lenght));
+
 }
