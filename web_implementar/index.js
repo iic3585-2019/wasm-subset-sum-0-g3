@@ -9,15 +9,18 @@ const main = () => {
 
   document.getElementById("addElementButton").onclick = function(e) {
     const numberInput = document.getElementById("addNumberInput");
-    const rawValue = numberInput.value;
-    array.push(parseInt(rawValue, 10));
+    const rawValues = numberInput.value.split(",");
+    array = [...array, ...rawValues.map(x => parseInt(x, 10))];
     updateRepresentation(array, "array");
     numberInput.value = "";
   };
 
   document.getElementById("testArrayButton").onclick = function(e) {
+    const t0 = performance.now();
     const res = wasm.subset_sum(array, 0);
-    document.getElementById("result").innerHTML = res;
+    var t1 = performance.now();
+    document.getElementById("result").innerHTML =
+      res + " in " + (t1 - t0) + " ms.";
   };
 
   document.getElementById("clearArrayButton").onclick = function(e) {
