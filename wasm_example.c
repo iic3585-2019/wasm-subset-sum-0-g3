@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <emscripten/emscripten.h>
 
 int** ADJACENTS;
@@ -45,7 +46,7 @@ int backtrack(int colors, int *left_length, int *colored) {
 int EMSCRIPTEN_KEEPALIVE is_k_coloreable(int k, int nodes, int** adjacency_list, int adjacency_length){
   ADJACENTS = adjacency_list;
   ADJACENTS_LENGTH = adjacency_length;
-  int colored[nodes] = {0};
+  int colored[nodes];
   int left_length = nodes-1;
   return backtrack(k, &left_length, colored);
 }
@@ -59,9 +60,9 @@ int factorial(int n) {
 
  
 int main(int argc, char ** argv) {
-  int number = 5;
+  int number = 8;
   int fact = factorial(number);
-  printf("The factorial of %d is %d", number, fact);
+  printf("The factorial of %d is %d   \n", number, fact);
 
   // Initializing a matrix
   int adj_length = 10;
