@@ -1,10 +1,18 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
     <title>Hello wasm-pack!</title>
   </head>
   <body>
+    Add number: <input id="addNumberInput" type="text" name="number" />
+    <input id="addElementButton" type="submit" value="Add" />
+    <div id="arrayRepresentation">
+      <span>Array: </span> <span id="array">[]</span>
+    </div>
+    <input id="testArrayButton" type="submit" value="Test" />
+    <input id="clearArrayButton" type="submit" value="Clear" />
+    <div id="resultWrapper">Result: <span id="result">...</span></div>
     <script src="./bootstrap.js"></script>
   </body>
 </html>
