@@ -12,7 +12,7 @@ int works(int node, int* colored) {
       int other = ADJACENTS[i][1];
     }
     if (ADJACENTS[i][1] == node) {
-      int other = ADJACENTS[i][0]
+      int other = ADJACENTS[i][0];
     }
     if ((ADJACENTS[i][0] == node || ADJACENTS[i][1] == node) && colored[other] == colored[node]){
       return 0;
@@ -23,13 +23,13 @@ int works(int node, int* colored) {
 
 // Backtrack loop that assigns colors to all nodes
 int backtrack(int colors, int *left_length, int *colored) {
-  next = *left_length;
+  int next = *left_length;
   *left_length--;
   for (size_t i = 1; i <= colors; i++) {
     colored[next] = i;
     *left_length--;
     if (works(next, colored)) {
-      if (backtrack(colors, left, left_length, colored, colored_length)) {
+      if (backtrack(colors, left_length, colored)) {
         return 1;
       }
     }
@@ -47,7 +47,7 @@ int EMSCRIPTEN_KEEPALIVE is_k_coloreable(int k, int nodes, int** adjacency_list,
   ADJACENTS_LENGTH = adjacency_length;
   int colored[nodes] = {0};
   int left_length = nodes-1;
-  return backtrack(k, left_length, colored);
+  return backtrack(k, &left_length, colored);
 }
 
 int factorial(int n) {
@@ -101,6 +101,6 @@ int main(int argc, char ** argv) {
   adj[9][0] = 3;
   adj[9][1] = 2;
 
-  printf("Is the graph 3-coloreable? %d", is_k_coloreable(3, nodes, adj, adj_lenght));
+  printf("Is the graph 3-coloreable? %d", is_k_coloreable(3, nodes, adj, adj_length));
 
 }
